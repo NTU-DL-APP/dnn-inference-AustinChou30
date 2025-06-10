@@ -14,8 +14,10 @@ x_test = x_test / 255.0
 # === 建立模型 ===
 model = tf.keras.Sequential([
     tf.keras.layers.Flatten(input_shape=(28, 28), name="flatten"),
-    tf.keras.layers.Dense(128, activation='relu', name="dense_1"),
-    tf.keras.layers.Dense(10, activation='softmax', name="dense_2")
+    tf.keras.layers.Dense(256, activation='relu', name="dense_1"),
+    tf.keras.layers.Dense(128, activation='relu', name="dense_2"),
+    tf.keras.layers.Dense(64, activation='relu', name="dense_3"),
+    tf.keras.layers.Dense(10, activation='softmax', name="output")
 ])
 
 # === 編譯與訓練 ===
@@ -23,7 +25,7 @@ model.compile(optimizer='adam',
               loss='sparse_categorical_crossentropy',
               metrics=['accuracy'])
 
-model.fit(x_train, y_train, epochs=5, batch_size=64, validation_split=0.1)
+model.fit(x_train, y_train, epochs=30, batch_size=64, validation_split=0.01)
 
 # === 測試模型準確率 ===
 test_loss, test_acc = model.evaluate(x_test, y_test)
